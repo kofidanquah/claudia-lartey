@@ -1,0 +1,999 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Claudia Lartey — Copywriter</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+    <style>
+         :root {
+            --cream: #f8f3ec;
+            --ink: #1a1410;
+            --terracotta: #c0622f;
+            --gold: #b89b5e;
+            --muted: #7a6f65;
+            --light-line: #e2d9ce;
+        }
+        
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            background-color: var(--cream);
+            color: var(--ink);
+            font-family: "DM Sans", sans-serif;
+            font-weight: 300;
+            overflow-x: hidden;
+        }
+        /* ── NOISE TEXTURE OVERLAY ── */
+        
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.5;
+        }
+        /* ── NAV ── */
+        
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1.25rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(248, 243, 236, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--light-line);
+        }
+        
+        .nav-logo {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--ink);
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            font-size: 0.78rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.25s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--terracotta);
+        }
+        /* ── HERO ── */
+        
+        #hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            padding: 8rem 5rem 4rem;
+            gap: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-bg-circle {
+            position: absolute;
+            width: 520px;
+            height: 520px;
+            border-radius: 50%;
+            background: radial-gradient( circle, rgba(192, 98, 47, 0.08) 0%, transparent 70%);
+            top: 50%;
+            right: -80px;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+        
+        .hero-eyebrow {
+            font-size: 0.72rem;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--terracotta);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeUp 0.8s 0.1s ease forwards;
+        }
+        
+        .hero-title {
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(3.5rem, 7vw, 6rem);
+            font-weight: 300;
+            line-height: 1;
+            color: var(--ink);
+            opacity: 0;
+            animation: fadeUp 0.9s 0.25s ease forwards;
+        }
+        
+        .hero-title em {
+            font-style: italic;
+            color: var(--terracotta);
+        }
+        
+        .hero-divider {
+            width: 56px;
+            height: 1px;
+            background: var(--gold);
+            margin: 2rem 0;
+            opacity: 0;
+            animation: fadeUp 0.8s 0.4s ease forwards;
+        }
+        
+        .hero-subtitle {
+            font-size: 1rem;
+            line-height: 1.75;
+            color: var(--muted);
+            max-width: 360px;
+            opacity: 0;
+            animation: fadeUp 0.8s 0.55s ease forwards;
+        }
+        
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-top: 2.5rem;
+            padding: 0.9rem 2rem;
+            background: var(--ink);
+            color: var(--cream);
+            font-size: 0.78rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+            opacity: 0;
+            animation: fadeUp 0.8s 0.7s ease forwards;
+        }
+        
+        .hero-cta:hover {
+            background: var(--terracotta);
+            transform: translateY(-2px);
+            color: #fff;
+        }
+        
+        .hero-cta svg {
+            transition: transform 0.3s;
+        }
+        
+        .hero-cta:hover svg {
+            transform: translateX(4px);
+        }
+        
+        .hero-right {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            opacity: 0;
+            animation: fadeRight 1s 0.5s ease forwards;
+        }
+        
+        .hero-stat-card {
+            background: #fff;
+            border: 1px solid var(--light-line);
+            padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .stat-num {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: var(--terracotta);
+            line-height: 1;
+        }
+        
+        .stat-label {
+            font-size: 0.78rem;
+            letter-spacing: 0.1em;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+        /* ── SECTION BASE ── */
+        
+        section {
+            padding: 7rem 5rem;
+        }
+        
+        .section-tag {
+            font-size: 0.72rem;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--terracotta);
+            margin-bottom: 0.75rem;
+        }
+        
+        .section-heading {
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(2.2rem, 4vw, 3.5rem);
+            font-weight: 300;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-heading em {
+            font-style: italic;
+            color: var(--terracotta);
+        }
+        /* ── ABOUT ── */
+        
+        #about {
+            background: var(--ink);
+            color: var(--cream);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+        
+        #about .section-tag {
+            color: var(--gold);
+        }
+        
+        #about .section-heading {
+            color: var(--cream);
+        }
+        
+        #about .section-heading em {
+            color: var(--gold);
+        }
+        
+        .about-body {
+            font-size: 1rem;
+            line-height: 1.85;
+            color: rgba(248, 243, 236, 0.7);
+        }
+        
+        .about-right {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .about-skill {
+            background: var(--ink);
+            padding: 2rem 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            transition: background 0.3s;
+        }
+        
+        .about-skill:hover {
+            background: rgba(255, 255, 255, 0.04);
+        }
+        
+        .skill-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--terracotta);
+            margin-bottom: 1rem;
+            clip-path: polygon( 50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        }
+        
+        .skill-title {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--cream);
+            margin-bottom: 0.4rem;
+        }
+        
+        .skill-desc {
+            font-size: 0.8rem;
+            color: rgba(248, 243, 236, 0.5);
+            line-height: 1.6;
+        }
+        /* ── PORTFOLIO ── */
+        
+        #portfolio {
+            background: var(--cream);
+        }
+        
+        .portfolio-intro {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 4rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--light-line);
+        }
+        
+        .portfolio-intro p {
+            max-width: 360px;
+            font-size: 0.95rem;
+            line-height: 1.75;
+            color: var(--muted);
+        }
+        
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+        
+        .work-card {
+            background: #fff;
+            border: 1px solid var(--light-line);
+            padding: 2.5rem;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.35s;
+            overflow: hidden;
+        }
+        
+        .work-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: var(--terracotta);
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            z-index: 0;
+        }
+        
+        .work-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(26, 20, 16, 0.12);
+        }
+        
+        .work-card:hover::before {
+            transform: translateY(0);
+        }
+        
+        .work-card>* {
+            position: relative;
+            z-index: 1;
+            transition: color 0.3s;
+        }
+        
+        .work-card:hover .card-num,
+        .work-card:hover .card-type,
+        .work-card:hover .card-title,
+        .work-card:hover .card-body,
+        .work-card:hover .card-tag {
+            color: rgba(248, 243, 236, 0.9) !important;
+        }
+        
+        .work-card:hover .card-title {
+            color: #fff !important;
+        }
+        
+        .work-card:hover .card-divider {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .card-num {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 0.85rem;
+            color: var(--terracotta);
+            letter-spacing: 0.15em;
+            margin-bottom: 1.25rem;
+            font-weight: 600;
+        }
+        
+        .card-type {
+            font-size: 0.7rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 0.5rem;
+        }
+        
+        .card-title {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 1.6rem;
+            font-weight: 300;
+            color: var(--ink);
+            margin-bottom: 1.25rem;
+            line-height: 1.2;
+        }
+        
+        .card-divider {
+            width: 32px;
+            height: 1px;
+            background: var(--gold);
+            margin-bottom: 1.25rem;
+            transition: background 0.3s;
+        }
+        
+        .card-body {
+            font-size: 0.88rem;
+            line-height: 1.8;
+            color: var(--muted);
+        }
+        
+        .card-tag {
+            display: inline-block;
+            margin-top: 1.5rem;
+            font-size: 0.7rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--terracotta);
+            border: 1px solid currentColor;
+            padding: 0.3rem 0.75rem;
+        }
+        /* Wide card */
+        
+        .work-card.wide {
+            grid-column: span 2;
+            display: grid;
+            grid-template-columns: 1fr 1.6fr;
+            gap: 3rem;
+            align-items: start;
+        }
+        /* ── CONTACT ── */
+        
+        #contact {
+            background: var(--ink);
+            color: var(--cream);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        #contact::before {
+            content: "HELLO";
+            position: absolute;
+            font-family: "Cormorant Garamond", serif;
+            font-size: 20vw;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.03);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            white-space: nowrap;
+        }
+        
+        #contact .section-tag {
+            color: var(--gold);
+        }
+        
+        #contact .section-heading {
+            color: #fff;
+        }
+        
+        #contact .section-heading em {
+            color: var(--gold);
+        }
+        
+        .contact-lead {
+            font-size: 1rem;
+            line-height: 1.85;
+            color: rgba(248, 243, 236, 0.6);
+            max-width: 480px;
+            margin: 0 auto 3rem;
+        }
+        
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.85rem 2rem;
+            font-size: 0.78rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: 1px solid;
+            transition: all 0.3s;
+        }
+        
+        .contact-btn.primary {
+            background: var(--terracotta);
+            border-color: var(--terracotta);
+            color: #fff;
+        }
+        
+        .contact-btn.primary:hover {
+            background: transparent;
+            color: var(--terracotta);
+        }
+        
+        .contact-btn.secondary {
+            background: transparent;
+            border-color: rgba(255, 255, 255, 0.2);
+            color: rgba(248, 243, 236, 0.7);
+        }
+        
+        .contact-btn.secondary:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+        /* ── FOOTER ── */
+        
+        footer {
+            background: #100e0b;
+            color: rgba(248, 243, 236, 0.3);
+            text-align: center;
+            padding: 1.5rem 3rem;
+            font-size: 0.78rem;
+            letter-spacing: 0.1em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        footer span {
+            color: var(--terracotta);
+        }
+        /* ── ANIMATIONS ── */
+        
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeRight {
+            from {
+                opacity: 0;
+                transform: translateX(32px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.75s ease, transform 0.75s ease;
+        }
+        
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* ── HAMBURGER (mobile) ── */
+        
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+        
+        .hamburger span {
+            width: 24px;
+            height: 1.5px;
+            background: var(--ink);
+            transition: all 0.3s;
+            display: block;
+        }
+        /* ── RESPONSIVE ── */
+        
+        @media (max-width: 991px) {
+            nav {
+                padding: 1.25rem 2rem;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--cream);
+                padding: 1.5rem 2rem;
+                border-bottom: 1px solid var(--light-line);
+                gap: 1.25rem;
+            }
+            .nav-links.open {
+                display: flex;
+            }
+            .hamburger {
+                display: flex;
+            }
+            #hero {
+                grid-template-columns: 1fr;
+                padding: 7rem 2rem 4rem;
+                text-align: center;
+            }
+            .hero-subtitle {
+                margin: 0 auto;
+            }
+            .hero-divider {
+                margin: 1.5rem auto;
+            }
+            .hero-right {
+                display: none;
+            }
+            .hero-bg-circle {
+                display: none;
+            }
+            section {
+                padding: 5rem 2rem;
+            }
+            #about {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            .about-right {
+                grid-template-columns: 1fr 1fr;
+            }
+            .portfolio-intro {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            .work-grid {
+                grid-template-columns: 1fr;
+            }
+            .work-card.wide {
+                grid-column: span 1;
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            footer {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- NAV -->
+    <nav>
+        <a href="#hero" class="nav-logo">Claudia Lartey</a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#about">About</a></li>
+            <li><a href="#portfolio">Work</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <!-- HERO -->
+    <section id="hero">
+        <div class="hero-left">
+            <p class="hero-eyebrow">Copywriter · Brand Voice · Content</p>
+            <h1 class="hero-title">Words that<br /><em>move</em><br />people.</h1>
+            <div class="hero-divider"></div>
+            <p class="hero-subtitle">
+                I craft copy that connects brands to their audience — with clarity, intention, and a voice that stays memorable long after the scroll.
+            </p>
+            <a href="#portfolio" class="hero-cta">
+          View My Work
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+          >
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </a>
+        </div>
+        <div class="hero-right">
+            <div class="hero-stat-card">
+                <div class="stat-num">4+</div>
+                <div class="stat-label">Content formats<br />mastered</div>
+            </div>
+            <div class="hero-stat-card">
+                <div class="stat-num">∞</div>
+                <div class="stat-label">Industries &amp;<br />brand voices</div>
+            </div>
+            <div class="hero-stat-card">
+                <div class="stat-num">1</div>
+                <div class="stat-label">Core goal — copy<br />that converts</div>
+            </div>
+        </div>
+        <div class="hero-bg-circle"></div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+        <div class="reveal">
+            <p class="section-tag">Who I Am</p>
+            <h2 class="section-heading">
+                Writing with<br /><em>purpose</em> &amp; clarity.
+            </h2>
+            <p class="about-body" style="margin-bottom: 1.5rem">
+                I'm Claudia Lartey, a copywriter passionate about telling brand stories that resonate. I believe good copy isn't just beautiful sentences — it's a strategic tool that builds trust, drives action, and gives businesses a voice worth listening to.
+            </p>
+            <p class="about-body">
+                Whether you need a social post that stops the scroll, a product description that converts browsers into buyers, or an email that actually gets read — I write with your audience's needs at the center.
+            </p>
+        </div>
+        <div class="about-right reveal">
+            <div class="about-skill">
+                <div class="skill-icon"></div>
+                <div class="skill-title">Social Media</div>
+                <div class="skill-desc">
+                    Engaging posts crafted for real audience connection.
+                </div>
+            </div>
+            <div class="about-skill">
+                <div class="skill-icon" style="background: var(--gold)"></div>
+                <div class="skill-title">Product Copy</div>
+                <div class="skill-desc">
+                    Descriptions that sell the feeling, not just the feature.
+                </div>
+            </div>
+            <div class="about-skill">
+                <div class="skill-icon" style="background: var(--muted)"></div>
+                <div class="skill-title">Ad Writing</div>
+                <div class="skill-desc">
+                    Concise, punchy ads that cut through the noise.
+                </div>
+            </div>
+            <div class="about-skill">
+                <div class="skill-icon" style="clip-path: none; border-radius: 4px"></div>
+                <div class="skill-title">Email Copy</div>
+                <div class="skill-desc">
+                    Promotional emails people actually want to open.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio">
+        <div class="portfolio-intro reveal">
+            <div>
+                <p class="section-tag">Selected Work</p>
+                <h2 class="section-heading">Sample <em>Portfolio</em></h2>
+            </div>
+            <p>
+                A curated selection of writing samples across different formats and industries, demonstrating range, tone, and strategic thinking.
+            </p>
+        </div>
+
+        <div class="work-grid">
+            <!-- Card 1 — Social Media (wide) -->
+            <div class="work-card wide reveal">
+                <div>
+                    <p class="card-num">01</p>
+                    <p class="card-type">Social Media Post</p>
+                    <h3 class="card-title">Clothing Boutique</h3>
+                    <div class="card-divider"></div>
+                    <span class="card-tag">Instagram / Facebook</span>
+                </div>
+                <div>
+                    <p class="card-body" style="
+                font-size: 1rem;
+                color: var(--ink);
+                line-height: 2;
+                font-family: &quot;Cormorant Garamond&quot;, serif;
+                font-style: italic;
+              ">
+                        "No, you do not need to break the bank for this."
+                    </p>
+                    <p class="card-body" style="margin-top: 1rem">
+                        If finding the perfect clothing for each occasion has been a challenge, we are here to help. We offer a high range of clothing for every occasion and style, all at affordable prices. With just a small budget, you can enjoy quality and durable pieces that
+                        make you step out in style and confidence. Whether it is sophistication or simplicity you're looking for, we have got you covered.
+                    </p>
+                    <p class="card-body" style="margin-top: 0.85rem">
+                        Shop with us today to discover amazing pieces and fashion that fits your style. Remember, your confidence is our highest interest.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Card 2 — Product Description -->
+            <div class="work-card reveal">
+                <p class="card-num">02</p>
+                <p class="card-type">Product Description</p>
+                <h3 class="card-title">Newly Improved Mattress</h3>
+                <div class="card-divider"></div>
+                <p class="card-body">
+                    Our newly improved mattress has been designed to give you the comfort you deserve. Our product adjusts perfectly to tally with your spine's natural alignment, helping you sleep comfortably without compromising your posture. Soft yet durable, this mattress
+                    is designed to give you comfort for years to come.
+                </p>
+                <p class="card-body" style="margin-top: 0.85rem">
+                    Say goodbye to restless nights and back discomfort, and hello to deep refreshing sleep every night.
+                </p>
+                <span class="card-tag">E-commerce</span>
+            </div>
+
+            <!-- Card 3 — Advertisement -->
+            <div class="work-card reveal">
+                <p class="card-num">03</p>
+                <p class="card-type">Advertisement</p>
+                <h3 class="card-title">Bookshop &amp; School Supplies</h3>
+                <div class="card-divider"></div>
+                <p class="card-body">
+                    Having trouble finding the right school supplies, study materials or books? Look no further. We offer a wide range of stationery and educational resources for students at every level — from basic education to tertiary and beyond.
+                </p>
+                <p class="card-body" style="margin-top: 0.85rem">
+                    Worried about quality and affordability? We've got you covered! Visit any of our branches nationwide for purchases, or shop directly from our website today.
+                </p>
+                <span class="card-tag">Print / Digital Ad</span>
+            </div>
+
+            <!-- Card 4 — Email -->
+            <div class="work-card wide reveal">
+                <div>
+                    <p class="card-num">04</p>
+                    <p class="card-type">Promotional Email</p>
+                    <h3 class="card-title">Cleaning Services Campaign</h3>
+                    <div class="card-divider"></div>
+                    <span class="card-tag">Email Marketing</span>
+                </div>
+                <div>
+                    <p class="card-body" style="
+                font-size: 0.78rem;
+                letter-spacing: 0.12em;
+                text-transform: uppercase;
+                margin-bottom: 0.5rem;
+              ">
+                        Subject Line
+                    </p>
+                    <p class="card-body" style="
+                font-family: &quot;Cormorant Garamond&quot;, serif;
+                font-size: 1.15rem;
+                color: var(--ink);
+                margin-bottom: 1.25rem;
+              ">
+                        Special Discount on Cleaning Services this Month
+                    </p>
+                    <p class="card-body">
+                        Hello,<br /><br /> We're excited to announce a special discount on all our services, happening this festive month. Whether you need regular cleaning or deep cleaning for your home or office, our professional team is here to serve
+                        with care and efficiency.
+                    </p>
+                    <p class="card-body" style="margin-top: 0.85rem">
+                        Contact us today to book our services and have your share of this time-limited discount. We look forward to serving you!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+        <p class="section-tag reveal">Get In Touch</p>
+        <h2 class="section-heading reveal">
+            Let's create something<br /><em>worth reading.</em>
+        </h2>
+        <p class="contact-lead reveal">
+            Have a project in mind? I'd love to hear about it. Send a message and let's talk about how words can work harder for your brand.
+        </p>
+        <div class="contact-links reveal">
+            <a href="mailto:claudialartey6@gmail.com" class="contact-btn primary">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path
+              d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+            />
+            <polyline points="22,6 12,13 2,6" />
+          </svg> claudialartey6@gmail.com
+            </a>
+            <a href="tel:+233500866658" class="contact-btn secondary">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path
+              d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"
+            />
+          </svg> 0500 866 658
+            </a>
+            <a href="https://linkedin.com/in/claudia-lartey" target="_blank" class="contact-btn secondary">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path
+              d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 6a2 2 0 100-4 2 2 0 000 4z"
+            />
+          </svg> LinkedIn
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <span>Claudia Lartey</span>
+        <p>© 2026 · All samples for demonstration purposes.</p>
+        <p>Copywriter <span>·</span> Ghana</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Hamburger
+        const hamburger = document.getElementById("hamburger");
+        const navLinks = document.getElementById("navLinks");
+        hamburger.addEventListener("click", () =>
+            navLinks.classList.toggle("open"),
+        );
+        navLinks
+            .querySelectorAll("a")
+            .forEach((a) =>
+                a.addEventListener("click", () => navLinks.classList.remove("open")),
+            );
+
+        // Scroll reveal
+        const reveals = document.querySelectorAll(".reveal");
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry, i) => {
+                    if (entry.isIntersecting) {
+                        // Stagger siblings slightly
+                        const siblings = [
+                            ...entry.target.parentElement.querySelectorAll(".reveal"),
+                        ];
+                        const idx = siblings.indexOf(entry.target);
+                        entry.target.style.transitionDelay = `${idx * 0.08}s`;
+                        entry.target.classList.add("visible");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.12,
+            },
+        );
+        reveals.forEach((el) => observer.observe(el));
+
+        // Smooth active nav highlight
+        const sections = document.querySelectorAll("section[id]");
+        const navAs = document.querySelectorAll(".nav-links a");
+        window.addEventListener(
+            "scroll",
+            () => {
+                let current = "";
+                sections.forEach((s) => {
+                    if (window.scrollY >= s.offsetTop - 120) current = s.id;
+                });
+                navAs.forEach((a) => {
+                    a.style.color =
+                        a.getAttribute("href") === "#" + current ?
+                        "var(--terracotta)" :
+                        "";
+                });
+            }, {
+                passive: true,
+            },
+        );
+    </script>
+</body>
+
+</html>
